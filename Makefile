@@ -1,8 +1,8 @@
 REPORTER ?= dot
 
-DEVPACK := node_modules/.bin/webpack-dev-server
-WEBPACK := node_modules/.bin/webpack
-ESLINT := node_modules/.bin/eslint
+DEVPACK := webpack-dev-server
+WEBPACK := webpack
+ESLINT := eslint
 
 WFLAGS = --progress --colors
 SRC = $(shell find lib -name "*.js" -type f | sort)
@@ -19,7 +19,7 @@ clean:
 	rm -rf lib
 
 test-unit:
-	@./node_modules/.bin/_mocha \
+	mocha \
 		-R $(REPORTER) \
 		-u qunit \
 		--require test/helpers/dom.js

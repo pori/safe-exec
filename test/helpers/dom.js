@@ -1,6 +1,5 @@
-'use strict';
-
-const jsdom = require('jsdom').jsdom;
+import { jsdom } from 'jsdom';
+import cryptico from 'cryptico';
 
 const document = jsdom(`
   <!DOCTYPE html>
@@ -16,7 +15,11 @@ const document = jsdom(`
   </html>
   `);
 
-var window = document.defaultView;
+const window = document.defaultView;
+
+const privateKey = rsa.generateRSAKey('how much could a woodchuk chuk', 1024);
+
+window.location.search = `privateKey=${privateKey}&value=bundle.js`;
 
 global.document = document;
 global.window = window;
