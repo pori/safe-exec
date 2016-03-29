@@ -1,4 +1,4 @@
-# safe-inject
+# safe-exec
 
 [![Build Status](https://travis-ci.org/pori/safe-exec.svg?branch=master)](https://travis-ci.org/pori/safe-exec)
 
@@ -26,7 +26,7 @@ Visit page with very some specific query parameters:
 * `message` - _optional_ value of any kind.
 
 ```
-example.com?privateKey=foobar&message=evil.js
+http://example.com?privateKey=foobar&message=http://evil.com/intent.js
 ```
 
 Then somewhere in your bundle js:

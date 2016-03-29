@@ -1,6 +1,6 @@
 {
   "name": "safe-exec",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "controlled remote code execution",
   "main": "index.js",
   "scripts": {
