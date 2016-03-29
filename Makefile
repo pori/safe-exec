@@ -22,7 +22,8 @@ test-unit:
 	mocha \
 		-R $(REPORTER) \
 		-u qunit \
-		--require test/helpers/dom.js
+		--require test/helpers/dom.js \
+		--compilers js:babel-core/register
 
 lint:
 	$(ESLINT) $(SRC)

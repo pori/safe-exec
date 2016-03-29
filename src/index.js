@@ -4,8 +4,8 @@ import cryptico from 'cryptico';
  * Just a query string parser.
  * @return {object}
  */
-function qs() {
-  let params = window.location.search.split(/&/g);
+function qs(search) {
+  let params = search.split(/&/g);
 
   return params.reduce((previous, current) => {
     let pair = current.split('=');
@@ -20,19 +20,20 @@ function qs() {
 
 /**
  * Executes code if a public/private key pair is present.
+ * @param {string} search - Should be value of window.location.search
  * @param {string} publicKey
  * @param {function} cb
  * @return {boolean}
  */
-export default function exec(publicKey, cb) {
-  let params = qs();
+export default function exec(search, publicKey, sessionStorage, cb) {
+  let params = qs(search);
   let privateKey = (function() {
     let item = sessionStorage.getItem('privateKey');
 
-    return (item) ? item : params.privateKey;
+    return (item) ? item : cryptico.generateRSAKey(params.privateKey, 1024);
   })();
-  let cipher = cryptico.encrypt('seed', publicKey);
-  let test = cryptico.decrypt(cipher, privateKey);
+  let result = cryptico.encrypt('seed', publicKey);
+  let test = cryptico.decrypt(result.cipher, privateKey);
 
   if (test.status === 'failure') return false;
 
