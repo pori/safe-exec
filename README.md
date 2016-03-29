@@ -1,7 +1,6 @@
 # safe-inject
 
 [![Build Status](https://travis-ci.org/pori/safe-exec.svg?branch=master)](https://travis-ci.org/pori/safe-exec)
-[![NPM version][npm-image]][npm-url]
 
 Controlled remote code execution. Great for debugging on a live server. Extremely dangerous for everything else.
 
