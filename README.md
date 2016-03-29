@@ -29,7 +29,7 @@ Visit page with very some specific query parameters:
 http://example.com?privateKey=foobar&message=http://evil.com/intent.js
 ```
 
-Then somewhere in your bundle js:
+Then somewhere in your code:
 
 ```js
 exec(location.search, 'reallylongcipher', sessionStorage, (message) => {
@@ -41,7 +41,7 @@ exec(location.search, 'reallylongcipher', sessionStorage, (message) => {
 
 # FAQ
 
-## _Wow this is great idea! Should I use this in production?_
+## _Wow this is a great idea! Should I use this in production?_
 
 You should *never* use this in a production environment. This library creates an intentional backdoor for your front-end, which is a huge security risk.
 
@@ -53,7 +53,7 @@ This is useful for environments that are difficult replicate on your local machi
 
 ## exec(search, publicKey, sessionStorage, cb)
 
-Executes code if a public/private key pair is present.
+Executes code if a valid public/private key pair is present.
 
 * `search` - should just be `window.location.search`.
 * `publicKey` - any valid RSA public key.

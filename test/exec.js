@@ -9,7 +9,6 @@ test('change a script source', function() {
   assert.equal('foobar.js', victim.getAttribute('src')); // Sanity check
 
   let publicKey = 'pbJgi9aBK+Ohh6Lq5RvQBQXze/94WZv+m9WMWINboE55PLk1TILLQUJ+d2Bb/+52VlPDHlE1qu9qjZSnY0RMbCwb6KyWai+CbYA3kQspztZ0dJVVojhtwSNmlTuPStpM8KOR2Y49jMuTFvCDTh9vnqwPy/KkXJpiUIoaxbKV1Z8=';
-  // let privateKey = cryptico.generateRSAKey('how much could a woodchuk chuk', 1024);
   let search = `privateKey=${'how much could a woodchuk chuk'}&message=bundle.js`;
 
   exec(search, publicKey, sessionStorage, (message) => {
