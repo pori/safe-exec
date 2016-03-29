@@ -1,4 +1,4 @@
-import cryptico from 'cryptico';
+import cryptico from 'cryptico'; // TODO: remove dep
 
 /**
  * Just a query string parser.
@@ -43,3 +43,7 @@ export default function exec(search, publicKey, sessionStorage, cb) {
 
   return true;
 }
+
+// TODO: override(search, url)
+
+// TODO: inject(content)
