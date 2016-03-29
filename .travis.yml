@@ -4,4 +4,4 @@ node_js:
   - "4.1"
   - "4.0"
 before_script:
-  - npm i -g mocha eslint
+  - npm i -g mocha

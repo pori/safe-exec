@@ -12,6 +12,12 @@ Uses RSA key pairs.
 npm install safe-exec
 ```
 
+# Test
+
+```sh
+make test
+```
+
 # Example
 
 Visit page with very some specific query parameters:

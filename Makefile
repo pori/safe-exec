@@ -12,7 +12,12 @@ all: build
 start:
 	$(DEVPACK) $(WFLAGS)
 
-build:
+build: build-node build-web
+
+build-node:
+	babel --presets es2015 -d lib src/
+
+build-web:
 	$(WEBPACK) $(WFLAGS)
 
 clean:
