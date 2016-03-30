@@ -1,6 +1,8 @@
 # safe-exec
 
 [![Build Status](https://travis-ci.org/pori/safe-exec.svg?branch=master)](https://travis-ci.org/pori/safe-exec)
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/safe-exec)
+[![Bower](https://img.shields.io/bower/v/bootstrap.svg)](https://github.com/pori/safe-exec)
 
 Controlled remote code execution. Great for debugging on a live server. Extremely dangerous for everything else.
 
@@ -14,7 +16,7 @@ Via [npm](https://www.npmjs.com/package/safe-exec):
 npm install safe-exec
 ```
 
-Via bower:
+Via Bower:
 
 ```sh
 bower install safe-exec
