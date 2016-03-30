@@ -15,13 +15,15 @@ start:
 build: build-node build-web
 
 build-node:
-	babel --presets es2015 -d lib src/
+	babel --presets es2015 -d lib/ src/
 
 build-web:
 	$(WEBPACK) $(WFLAGS)
 
 clean:
 	rm -rf lib
+
+test: lint test-unit
 
 test-unit:
 	mocha \
@@ -32,5 +34,3 @@ test-unit:
 
 lint:
 	$(ESLINT) $(SRC)
-
-test: lint test-unit

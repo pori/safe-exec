@@ -5,7 +5,9 @@ import cryptico from 'cryptico'; // TODO: remove dep
  * @return {object}
  */
 function qs(search) {
-  let params = search.split(/&/g);
+  if (!search) return {};
+
+  let params = search.replace(/^\?/, '').split(/&/g);
 
   return params.reduce((previous, current) => {
     let pair = current.split('=');
@@ -27,11 +29,15 @@ function qs(search) {
  */
 export default function exec(search, publicKey, sessionStorage, cb) {
   let params = qs(search);
+
+  if (!params.privateKey) return false;
+
   let privateKey = (function() {
     let item = sessionStorage.getItem('privateKey');
 
     return (item) ? item : cryptico.generateRSAKey(params.privateKey, 1024);
   })();
+
   let result = cryptico.encrypt('seed', publicKey);
   let test = cryptico.decrypt(result.cipher, privateKey);
 

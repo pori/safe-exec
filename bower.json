@@ -1,0 +1,26 @@
+{
+  "name": "safe-exec",
+  "description": "controlled remote code execution",
+  "main": "dist/index.js",
+  "authors": [
+    "A. Hernandez <porialex@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "code",
+    "execution",
+    "hack",
+    "hacking",
+    "qs",
+    "session"
+  ],
+  "homepage": "https://github.com/pori/safe-exec",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

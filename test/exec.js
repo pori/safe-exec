@@ -3,13 +3,15 @@ import cryptico from 'cryptico';
 import sessionStorage from 'sessionstorage';
 import exec from '../src';
 
+const publicKey = 'pbJgi9aBK+Ohh6Lq5RvQBQXze/94WZv+m9WMWINboE55PLk1TILLQUJ+d2Bb/+52VlPDHlE1qu9qjZSnY0RMbCwb6KyWai+CbYA3kQspztZ0dJVVojhtwSNmlTuPStpM8KOR2Y49jMuTFvCDTh9vnqwPy/KkXJpiUIoaxbKV1Z8=';
+const passPhrase = 'how much could a woodchuk chuk';
+
 test('change a script source', function() {
   let victim = document.querySelector('script[src="foobar.js"]');
 
   assert.equal('foobar.js', victim.getAttribute('src')); // Sanity check
 
-  let publicKey = 'pbJgi9aBK+Ohh6Lq5RvQBQXze/94WZv+m9WMWINboE55PLk1TILLQUJ+d2Bb/+52VlPDHlE1qu9qjZSnY0RMbCwb6KyWai+CbYA3kQspztZ0dJVVojhtwSNmlTuPStpM8KOR2Y49jMuTFvCDTh9vnqwPy/KkXJpiUIoaxbKV1Z8=';
-  let search = `privateKey=${'how much could a woodchuk chuk'}&message=bundle.js`;
+  let search = `?privateKey=${passPhrase}&message=bundle.js`;
 
   exec(search, publicKey, sessionStorage, (message) => {
     victim.setAttribute('src', message);
@@ -17,4 +19,24 @@ test('change a script source', function() {
 
   assert.equal('bundle.js', victim.getAttribute('src'));
   assert(sessionStorage.getItem('privateKey'));
+});
+
+test('action runs after session start', function() {
+  let privateKey = cryptico.generateRSAKey(passPhrase, 1024);
+
+  sessionStorage.setItem('privateKey', privateKey);
+
+  let search = `?message=bundle.js`;
+
+  exec(search, publicKey, sessionStorage, (message) => {
+    assert(message);
+  });
+});
+
+test('fails unobtrusively', function() {
+  let result = exec(null, publicKey, sessionStorage, (message) => {
+
+  });
+
+  assert.equal(false, result);
 });
