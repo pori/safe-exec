@@ -13,10 +13,11 @@ test('change a script source', function() {
 
   let search = `?privateKey=${passPhrase}&message=bundle.js`;
 
-  exec(search, publicKey, sessionStorage, (message) => {
+  let result = exec(search, publicKey, sessionStorage, (message) => {
     victim.setAttribute('src', message);
   });
 
+  assert.equal(true, result);
   assert.equal('bundle.js', victim.getAttribute('src'));
   assert(sessionStorage.getItem('privateKey'));
 });
@@ -34,9 +35,19 @@ test('action runs after session start', function() {
 });
 
 test('fails unobtrusively', function() {
-  let result = exec(null, publicKey, sessionStorage, (message) => {
-
-  });
+  let result = exec(null, publicKey, sessionStorage);
 
   assert.equal(false, result);
+});
+
+test('fails with feedback', function() {
+  var errored = false;
+
+  let result = exec(null, publicKey, sessionStorage, (message) => {
+    assert.equal(null, message, 'This never should have been reached!')
+  }, (error) => {
+    errored = true;
+  });
+
+  assert.equal(true, errored, 'There should have been an error.');
 });

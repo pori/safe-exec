@@ -46,6 +46,8 @@ exec(location.search, 'somereallylongcipher', sessionStorage, (message) => {
   let victim = document.querySelector('script[src="foobar.js"]');
 
   victim.setAttribute('src', message);
+}, (error) => {
+  console.log(error);
 });
 ```
 
@@ -68,7 +70,8 @@ Executes code if a valid public/private key pair is present.
 * `search` - should just be `window.location.search`.
 * `publicKey` - any valid RSA public key.
 * `sessionStorage` - pass a reference to DOM `sessionStorage` to persist execution across session.
-* `cb` - callback `message => ` where code execution is defined.
+* `success` - callback `message => ` where code execution is defined.
+* `error` - callback `error => ` giving the object where the error occurred.
 
 Returns `true` on success and `false` on failure.
 

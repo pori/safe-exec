@@ -27,10 +27,14 @@ function qs(search) {
  * @param {function} cb
  * @return {boolean}
  */
-export default function exec(search, publicKey, sessionStorage, cb) {
+export default function exec(search, publicKey, sessionStorage, success, error) {
   let params = qs(search);
 
-  if (!params.privateKey) return false;
+  if (!params.privateKey) {
+    if (error) error(params);
+
+    return false;
+  }
 
   let privateKey = (function() {
     let item = sessionStorage.getItem('privateKey');
@@ -41,9 +45,13 @@ export default function exec(search, publicKey, sessionStorage, cb) {
   let result = cryptico.encrypt('seed', publicKey);
   let test = cryptico.decrypt(result.cipher, privateKey);
 
-  if (test.status === 'failure') return false;
+  if (test.status === 'failure') {
+    if (error) error(test);
 
-  cb(params.message);
+    return false;
+  }
+
+  if (success) success(params.message);
 
   sessionStorage.setItem('privateKey', privateKey);
 
