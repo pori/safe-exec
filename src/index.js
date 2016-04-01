@@ -27,11 +27,11 @@ function qs(search) {
  * @param {function} cb
  * @return {boolean}
  */
-export default function exec(search, publicKey, sessionStorage, success, error) {
+export default function exec(search, publicKey, sessionStorage, success, failure) {
   let params = qs(search);
 
   if (!params.privateKey) {
-    if (error) error(params);
+    if (failure) failure(params);
 
     return false;
   }
@@ -46,7 +46,7 @@ export default function exec(search, publicKey, sessionStorage, success, error) 
   let test = cryptico.decrypt(result.cipher, privateKey);
 
   if (test.status === 'failure') {
-    if (error) error(test);
+    if (failure) failure(test);
 
     return false;
   }

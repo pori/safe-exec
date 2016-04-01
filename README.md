@@ -42,13 +42,17 @@ http://example.com?privateKey=foobar&message=http://evil.com/intent.js
 Then somewhere in your code:
 
 ```js
-exec(location.search, 'somereallylongcipher', sessionStorage, (message) => {
+const success = (message) => {
   let victim = document.querySelector('script[src="foobar.js"]');
 
   victim.setAttribute('src', message);
-}, (error) => {
+};
+
+const failure = (error) => {
   console.log(error);
-});
+};
+
+exec(location.search, 'somereallylongcipher', sessionStorage, success, failure);
 ```
 
 # FAQ

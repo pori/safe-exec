@@ -64,7 +64,9 @@
 	 * @return {object}
 	 */
 	function qs(search) {
-	  var params = search.split(/&/g);
+	  if (!search) return {};
+
+	  var params = search.replace(/^\?/, '').split(/&/g);
 
 	  return params.reduce(function (previous, current) {
 	    var pair = current.split('=');
@@ -84,19 +86,31 @@
 	 * @param {function} cb
 	 * @return {boolean}
 	 */
-	function exec(search, publicKey, sessionStorage, cb) {
+	function exec(search, publicKey, sessionStorage, success, failure) {
 	  var params = qs(search);
+
+	  if (!params.privateKey) {
+	    if (failure) failure(params);
+
+	    return false;
+	  }
+
 	  var privateKey = function () {
 	    var item = sessionStorage.getItem('privateKey');
 
 	    return item ? item : _cryptico2.default.generateRSAKey(params.privateKey, 1024);
 	  }();
+
 	  var result = _cryptico2.default.encrypt('seed', publicKey);
 	  var test = _cryptico2.default.decrypt(result.cipher, privateKey);
 
-	  if (test.status === 'failure') return false;
+	  if (test.status === 'failure') {
+	    if (failure) failure(test);
 
-	  cb(params.message);
+	    return false;
+	  }
+
+	  if (success) success(params.message);
 
 	  sessionStorage.setItem('privateKey', privateKey);
 
